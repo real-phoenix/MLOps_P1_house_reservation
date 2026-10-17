@@ -1,0 +1,5 @@
+venv/
+mlruns/
+logs/
+Project1_house_reservation.egg-info/
+google-cloud-sdk/
