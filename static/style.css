@@ -1,0 +1,298 @@
+/* ===== Theme tokens ===== */
+:root {
+    --bg-1: #eef2ff;
+    --bg-2: #fdf2f8;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #dbe1ea;
+    --accent: #6366f1;
+    --accent-2: #8b5cf6;
+    --accent-soft: rgba(99, 102, 241, 0.18);
+    --shadow: 0 20px 45px rgba(30, 41, 59, 0.12);
+    --ok-bg: #ecfdf5;
+    --ok-border: #34d399;
+    --bad-bg: #fef2f2;
+    --bad-border: #f87171;
+    --select-arrow: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-1: #0f172a;
+        --bg-2: #1e1b4b;
+        --card: #1e293b;
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --border: #334155;
+        --accent: #818cf8;
+        --accent-2: #a78bfa;
+        --accent-soft: rgba(129, 140, 248, 0.25);
+        --shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+        --ok-bg: #052e22;
+        --ok-border: #10b981;
+        --bad-bg: #3b0d0d;
+        --bad-border: #ef4444;
+        --select-arrow: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' fill='none' stroke='%23818cf8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    }
+}
+
+/* ===== Base ===== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 40px 16px;
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+    color: var(--text);
+    background: linear-gradient(135deg, var(--bg-1), var(--bg-2));
+    background-attachment: fixed;
+}
+
+/* ===== Card ===== */
+.container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 36px 32px 40px;
+    background: var(--card);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    animation: rise 0.6s ease both;
+}
+
+h2 {
+    margin: 0 0 28px;
+    text-align: center;
+    font-size: 1.9rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* ===== Form layout: two columns on wide screens ===== */
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    animation: rise 0.5s ease both;
+}
+
+/* staggered entrance */
+.form-group:nth-child(1)  { animation-delay: 0.05s; }
+.form-group:nth-child(2)  { animation-delay: 0.10s; }
+.form-group:nth-child(3)  { animation-delay: 0.15s; }
+.form-group:nth-child(4)  { animation-delay: 0.20s; }
+.form-group:nth-child(5)  { animation-delay: 0.25s; }
+.form-group:nth-child(6)  { animation-delay: 0.30s; }
+.form-group:nth-child(7)  { animation-delay: 0.35s; }
+.form-group:nth-child(8)  { animation-delay: 0.40s; }
+.form-group:nth-child(9)  { animation-delay: 0.45s; }
+.form-group:nth-child(10) { animation-delay: 0.50s; }
+
+label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted);
+    transition: color 0.2s ease;
+}
+
+/* label turns accent colour when its field is focused */
+.form-group:focus-within label {
+    color: var(--accent);
+}
+
+/* ===== Inputs & selects ===== */
+input[type="number"],
+select {
+    width: 100%;
+    padding: 12px 14px;
+    font: inherit;
+    color: var(--text);
+    background-color: transparent;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease,
+                transform 0.2s ease, background-color 0.2s ease;
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    padding-right: 38px;
+    background-image: var(--select-arrow);
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+}
+
+select option {
+    background: var(--card);
+    color: var(--text);
+}
+
+input[type="number"]:hover,
+select:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+}
+
+input[type="number"]:focus,
+select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+    transform: translateY(-1px);
+}
+
+/* green/red feedback once the user has typed something */
+input[type="number"]:not(:placeholder-shown):valid {
+    border-color: var(--ok-border);
+}
+
+input[type="number"]:not(:placeholder-shown):invalid {
+    border-color: var(--bad-border);
+}
+
+/* hide number spinners for a cleaner look */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+/* ===== Button ===== */
+.btn {
+    grid-column: 1 / -1;
+    position: relative;
+    overflow: hidden;
+    margin-top: 8px;
+    padding: 14px 20px;
+    font: inherit;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    background-size: 200% 200%;
+    background-position: 0% 50%;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 10px 24px var(--accent-soft);
+    transition: transform 0.2s ease, box-shadow 0.2s ease,
+                background-position 0.4s ease;
+}
+
+.btn:hover {
+    background-position: 100% 50%;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px var(--accent-soft);
+}
+
+.btn:active {
+    transform: translateY(1px) scale(0.99);
+    box-shadow: 0 4px 10px var(--accent-soft);
+}
+
+.btn:focus-visible {
+    outline: 3px solid var(--accent-soft);
+    outline-offset: 3px;
+}
+
+/* shine sweep on hover */
+.btn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -80%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+    transform: skewX(-20deg);
+}
+
+.btn:hover::after {
+    animation: shine 0.9s ease;
+}
+
+/* ===== Result ===== */
+.result {
+    margin-top: 28px;
+    animation: pop 0.45s cubic-bezier(0.2, 1.2, 0.4, 1) both;
+}
+
+.result p {
+    margin: 0;
+    padding: 18px 20px;
+    text-align: center;
+    font-size: 1.05rem;
+    font-weight: 700;
+    border-radius: 14px;
+    border: 1.5px solid var(--border);
+    background: var(--card);
+}
+
+/* uses the inline colour from the template to pick a matching style */
+.result p[style*="green"] {
+    background: var(--ok-bg);
+    border-color: var(--ok-border);
+}
+
+.result p[style*="red"] {
+    background: var(--bad-bg);
+    border-color: var(--bad-border);
+}
+
+/* ===== Animations ===== */
+@keyframes rise {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pop {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shine {
+    from { left: -80%; }
+    to   { left: 130%; }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+    .container {
+        padding: 28px 20px 32px;
+    }
+
+    form {
+        grid-template-columns: 1fr;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
